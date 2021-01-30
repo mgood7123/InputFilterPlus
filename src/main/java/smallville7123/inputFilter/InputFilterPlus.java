@@ -151,19 +151,15 @@ public class InputFilterPlus implements InputFilter {
         return processFilter(new FilterInfo(source, start, end, dest, dstart, dend));
     }
 
-    FilterInfo previous, current;
-
     @SuppressWarnings("StringOperationCanBeSimplified")
     // new String() required for string reference equality testing
     public static final String PROCESSES_MODE_APPEND_ORIGINAL = new String();
+
     @SuppressWarnings("StringOperationCanBeSimplified")
     // new String() required for string reference equality testing
     public static final String PROCESSES_MODE_APPEND_NOTHING = new String();
 
     private final CharSequence processFilter(FilterInfo filterInfo) {
-
-        previous = current;
-        current = filterInfo;
 
         Spanned oldString = filterInfo.dest;
         CharSequence newString = filterInfo.source;
@@ -210,15 +206,20 @@ public class InputFilterPlus implements InputFilter {
                     Log.d(TAG, "processFilter: removed letter (start)");
 
                     CharSequence removed = oldString.subSequence(filterInfo.dstart, filterInfo.dend);
+
                     String string = onLetterRemovedFromStart(String.valueOf(removed));
+
                     if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
                     else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
                     else return string;
                 }
                 if (filterInfo.end != filterInfo.dend - 1) {
                     Log.d(TAG, "processFilter: removed string (start)");
+
                     CharSequence removed = oldString.subSequence(filterInfo.dstart, filterInfo.dend);
+
                     String string = onStringRemovedFromStart(String.valueOf(removed));
+
                     if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
                     else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
                     else return string;
@@ -226,30 +227,43 @@ public class InputFilterPlus implements InputFilter {
             } else if (filterInfo.dend != oldLength) {
                 if (filterInfo.dstart == filterInfo.dend - 1) {
                     Log.d(TAG, "processFilter: removed letter (middle)");
+
                     char removed = oldString.charAt(filterInfo.dstart);
+
                     String string = onLetterRemovedFromMiddle(String.valueOf(removed));
+
                     if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
                     else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
                     else return string;
                 }
                 Log.d(TAG, "processFilter: removed string (middle)");
+
                 CharSequence removed = oldString.subSequence(filterInfo.dstart, filterInfo.dend);
+
                 String string = onStringRemovedFromMiddle(String.valueOf(removed));
+
                 if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
                 else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
                 else return string;
+
             } else if (filterInfo.dend == oldLength) {
                 if (filterInfo.dstart == filterInfo.dend - 1) {
                     Log.d(TAG, "processFilter: removed letter (end)");
+
                     char removed = oldString.charAt(filterInfo.dstart);
+
                     String string = onLetterRemovedFromEnd(String.valueOf(removed));
+
                     if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
                     else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
                     else return string;
                 }
                 Log.d(TAG, "processFilter: removed string (end)");
+
                 CharSequence removed = oldString.subSequence(filterInfo.dstart, filterInfo.dend);
+
                 String string = onStringRemovedFromEnd(String.valueOf(removed));
+
                 if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
                 else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
                 else return string;
@@ -261,17 +275,21 @@ public class InputFilterPlus implements InputFilter {
             if (filterInfo.dstart == 0 && filterInfo.dend != oldLength) {
                 if (filterInfo.start == filterInfo.end - 1 && filterInfo.dstart == filterInfo.dend - 1) {
                     Log.d(TAG, "processFilter: replaced letter (start)");
+
                     char replaceFrom = oldString.charAt(filterInfo.dstart);
-                    CharSequence replaceTo = newString;
-                    String string = onLetterReplacedFromStart(String.valueOf(replaceFrom), String.valueOf(replaceTo));
+
+                    String string = onLetterReplacedFromStart(String.valueOf(replaceFrom), String.valueOf(newString));
+
                     if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
                     else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
                     else return string;
                 }
                 Log.d(TAG, "processFilter: replaced string (start)");
+
                 CharSequence replaceFrom = oldString.subSequence(filterInfo.dstart, filterInfo.dend);
-                CharSequence replaceTo = newString;
-                String string = onStringReplacedFromStart(String.valueOf(replaceFrom), String.valueOf(replaceTo));
+
+                String string = onStringReplacedFromStart(String.valueOf(replaceFrom), String.valueOf(newString));
+
                 if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
                 else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
                 else return string;
@@ -279,17 +297,21 @@ public class InputFilterPlus implements InputFilter {
             if (filterInfo.dend != oldLength) {
                 if (filterInfo.start == filterInfo.end - 1 && filterInfo.dstart == filterInfo.dend - 1) {
                     Log.d(TAG, "processFilter: replaced letter (middle)");
+
                     char replaceFrom = oldString.charAt(filterInfo.dstart);
-                    CharSequence replaceTo = newString;
-                    String string = onLetterReplacedFromMiddle(String.valueOf(replaceFrom), String.valueOf(replaceTo));
+
+                    String string = onLetterReplacedFromMiddle(String.valueOf(replaceFrom), String.valueOf(newString));
+
                     if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
                     else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
                     else return string;
                 }
                 Log.d(TAG, "processFilter: replaced string (middle)");
+
                 CharSequence replaceFrom = oldString.subSequence(filterInfo.dstart, filterInfo.dend);
-                CharSequence replaceTo = newString;
-                String string = onStringReplacedFromMiddle(String.valueOf(replaceFrom), String.valueOf(replaceTo));
+
+                String string = onStringReplacedFromMiddle(String.valueOf(replaceFrom), String.valueOf(newString));
+
                 if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
                 else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
                 else return string;
@@ -297,17 +319,21 @@ public class InputFilterPlus implements InputFilter {
             if (filterInfo.dend == oldLength) {
                 if (filterInfo.start == filterInfo.end - 1 && filterInfo.dstart == filterInfo.dend - 1) {
                     Log.d(TAG, "processFilter: replaced letter (end)");
+
                     char replaceFrom = oldString.charAt(filterInfo.dstart);
-                    CharSequence replaceTo = newString;
-                    String string = onLetterReplacedFromEnd(String.valueOf(replaceFrom), String.valueOf(replaceTo));
+
+                    String string = onLetterReplacedFromEnd(String.valueOf(replaceFrom), String.valueOf(newString));
+
                     if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
                     else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
                     else return string;
                 }
                 Log.d(TAG, "processFilter: replaced string (end)");
+
                 CharSequence replaceFrom = oldString.subSequence(filterInfo.dstart, filterInfo.dend);
-                CharSequence replaceTo = newString;
-                String string = onStringReplacedFromEnd(String.valueOf(replaceFrom), String.valueOf(replaceTo));
+
+                String string = onStringReplacedFromEnd(String.valueOf(replaceFrom), String.valueOf(newString));
+
                 if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
                 else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
                 else return string;
@@ -318,15 +344,17 @@ public class InputFilterPlus implements InputFilter {
         if (filterInfo.dstart == 0 && filterInfo.dend != oldLength) {
             if (newLength == 1) {
                 Log.d(TAG, "processFilter: pasted letter (start)");
-                CharSequence pasted = newString;
-                String string = onLetterPastedFromStart(String.valueOf(pasted));
+
+                String string = onLetterPastedFromStart(String.valueOf(newString));
+
                 if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
                 else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
                 else return string;
             }
             Log.d(TAG, "processFilter: pasted string (start)");
-            CharSequence pasted = newString;
-            String string = onStringPastedFromStart(String.valueOf(pasted));
+
+            String string = onStringPastedFromStart(String.valueOf(newString));
+
             if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
             else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
             else return string;
@@ -334,15 +362,17 @@ public class InputFilterPlus implements InputFilter {
         if (filterInfo.dend != oldLength) {
             if (newLength == 1) {
                 Log.d(TAG, "processFilter: pasted letter (middle)");
-                CharSequence pasted = newString;
-                String string = onLetterPastedFromMiddle(String.valueOf(pasted));
+
+                String string = onLetterPastedFromMiddle(String.valueOf(newString));
+
                 if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
                 else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
                 else return string;
             }
             Log.d(TAG, "processFilter: pasted string (middle)");
-            CharSequence pasted = newString;
-            String string = onStringPastedFromMiddle(String.valueOf(pasted));
+
+            String string = onStringPastedFromMiddle(String.valueOf(newString));
+
             if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
             else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
             else return string;
@@ -350,15 +380,17 @@ public class InputFilterPlus implements InputFilter {
         if (filterInfo.dend == oldLength) {
             if (newLength == 1) {
                 Log.d(TAG, "processFilter: pasted letter (end)");
-                CharSequence pasted = newString;
-                String string = onLetterPastedFromEnd(String.valueOf(pasted));
+
+                String string = onLetterPastedFromEnd(String.valueOf(newString));
+
                 if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
                 else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
                 else return string;
             }
             Log.d(TAG, "processFilter: pasted string (end)");
-            CharSequence pasted = newString;
-            String string = onStringPastedFromEnd(String.valueOf(pasted));
+
+            String string = onStringPastedFromEnd(String.valueOf(newString));
+
             if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
             else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
             else return string;
