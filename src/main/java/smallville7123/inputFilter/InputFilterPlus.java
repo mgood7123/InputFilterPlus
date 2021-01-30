@@ -6,7 +6,7 @@ import android.util.Log;
 
 /**
  * an InputFilter which offers a vast array of callbacks in place of
- * {@link #filter(CharSequence, int, int, Spanned, int, int)}
+ * {@link #filter(CharSequence, int, int, Spanned, int, int) InputFilter#filter}
  * <br>
  * <br>
  * <strong>Callback return values</strong>
@@ -31,8 +31,6 @@ import android.util.Log;
  * <br>
  * <strong>Callbacks</strong>
  * <br>
- * <br>
- * these should be self explanatory
  * <br>
  * <li>appended letter (start)
  * <li>appended letter (middle)
@@ -78,17 +76,49 @@ import android.util.Log;
  * <strong>select text, and then press space</strong>
  * <br>
  * <br>
- * is interpreted not as a
- * <strong>replaced string</strong>,
- * but instead as a <strong>removed string</strong>
- * followed by an <strong>appended letter</strong>
+ * is interpreted not as a single
+ * {@link #filter(CharSequence, int, int, Spanned, int, int) InputFilter#filter}
+ * <strong>replaced string</strong>
+ * <br>
+ * <br>
+ * but instead as a
+ * {@link #filter(CharSequence, int, int, Spanned, int, int) InputFilter#filter}
+ * <strong>removed string</strong>
+ * followed by a
+ * {@link #filter(CharSequence, int, int, Spanned, int, int) InputFilter#filter}
+ * <strong>appended letter</strong>
  * <br>
  * <br>
  * <Strong>NOTE:</Strong>
  * <br>
  * <br>
  * text that contains spaces behaves in a non conforming way with
+ * <br>
+ * <br>
  * {@link #filter(CharSequence, int, int, Spanned, int, int)}
+ * <br>
+ * <br>
+ * <Strong>NOTE:</Strong>
+ * <br>
+ * <br>
+ * since <Strong>pasting text</Strong>, and <Strong>glide/swipe text input</Strong>,
+ * emit the same functionality, it is impossible to distinguish between the two
+ * <br>
+ * <br>
+ * for example:
+ * <br>
+ * <br>
+ * <li>glide/swipe  : <Strong>source = [focus], start = [0], end = [5], dest = [lll], dstart = [2], dend = [2]</Strong>
+ * <li>paste        : <Strong>source = [focus], start = [0], end = [5], dest = [lll], dstart = [2], dend = [2]</Strong>
+ * <br>
+ * <br>
+ * for this reason it is also impossible to append a string since
+ * this functionality is equivalent to <Strong>paste string</Strong>
+ * <br>
+ * <br>
+ * this is also true for <Strong>remove string</Strong> and <Strong>cut string</Strong>
+ * <br>
+ * <br>
  * @see smallville7123.inputFilter.ReplacementFilter
  * @see smallville7123.inputFilter.SpaceFilter
  * @see smallville7123.inputFilter.BackSpaceFilter
