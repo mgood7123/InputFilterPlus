@@ -27,6 +27,12 @@ import android.util.Log;
  * <strong>PROCESSES_MODE_APPEND_NOTHING</strong>
  * <br>
  * <br>
+ * or
+ * <br>
+ * <br>
+ * a <strong>String</strong> to append (see {@link ReplacementFilter})
+ * <br>
+ * <br>
  * <br>
  * <br>
  * <strong>Callbacks</strong>

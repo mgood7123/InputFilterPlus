@@ -15,7 +15,7 @@ SpaceFilter       | a version of `InputFilterPlus` that can disallow spaces. thi
 
 these should be self explanatory
 
-all callbacks accept either `PROCESSES_MODE_APPEND_ORIGINAL` or `PROCESSES_MODE_APPEND_NOTHING`
+all callbacks accept either `PROCESSES_MODE_APPEND_ORIGINAL` or `PROCESSES_MODE_APPEND_NOTHING` or a `String` to append (see `ReplacementFilter`)
 
 # Callbacks
 
