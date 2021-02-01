@@ -17,8 +17,8 @@ DigitRangeFilter  | a version of `InputFilterPlus` that limits text to a numeric
 Return value                   | Meaning
 ------------------------------ | ------------------------------
 PROCESSES_MODE_APPEND_ORIGINAL | return this if you want to append/replace with the original value
-PROCESSES_MODE_APPEND_NOTHING  | return this if you want to reject the replacement all together
-String                         | return this if you want to append/replace with a custom string
+PROCESSES_MODE_APPEND_NOTHING  | return this if you want to reject the append/replacement all together
+of type `String`               | return this if you want to append/replace with a custom string
 
 # Callbacks
 
@@ -58,13 +58,21 @@ String                         | return this if you want to append/replace with 
 
 ### Note
 
-for some unknown reason, the `select text, and then press space`
+for some unknown reason, the
 
-is interpreted not as a single `InputFilter#filter` event `replaced string`
+* `select text`, and then `press space` (on the IME/soft keyboard)
+
+is interpreted not as a single `InputFilter#filter` event:
+
+ * `replaced string`
 
 but instead as two sequential `InputFilter#filter` events:
 
-* `removed string` followed by `appended letter`
+* `removed string`
+
+followed by
+
+* `appended letter`
 
 ### Note
 
