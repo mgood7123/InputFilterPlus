@@ -86,4 +86,4 @@ this functionality is equivalent to `paste string`
 this is also true for the following:
 
 * `remove string` and `cut string`
-* `paste letter` and `append letter`
+* `append letter` and `paste letter`
