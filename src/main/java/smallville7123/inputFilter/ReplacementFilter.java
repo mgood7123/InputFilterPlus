@@ -92,24 +92,6 @@ public class ReplacementFilter extends InputFilterPlus {
     }
 
     @Override
-    public String onLetterPastedFromStart(String currentString, String letter) {
-        if (!allowReplacement && letter.contains(what)) return replacement;
-        else return PROCESSES_MODE_APPEND_ORIGINAL;
-    }
-
-    @Override
-    public String onLetterPastedFromMiddle(String currentString, int oldLetterStartLocation, String letter) {
-        if (!allowReplacement && letter.contains(what)) return replacement;
-        else return PROCESSES_MODE_APPEND_ORIGINAL;
-    }
-
-    @Override
-    public String onLetterPastedFromEnd(String currentString, int oldLetterStartLocation, String letter) {
-        if (!allowReplacement && letter.contains(what)) return replacement;
-        else return PROCESSES_MODE_APPEND_ORIGINAL;
-    }
-
-    @Override
     public String onStringPastedFromStart(String currentString, String string) {
         if (!allowReplacement && string.contains(what)) {
             return string.replace(what, replacement);

@@ -358,15 +358,6 @@ public class InputFilterPlus implements InputFilter {
 
         Log.d(TAG, "processFilter: [paste] criteria match");
         if (filterInfo.dstart == 0 && filterInfo.dend != oldLength) {
-            if (newLength == 1) {
-                Log.d(TAG, "processFilter: pasted letter (start)");
-
-                String string = onLetterPastedFromStart(oldString, String.valueOf(newString));
-
-                if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
-                else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
-                else return string;
-            }
             Log.d(TAG, "processFilter: pasted string (start)");
 
             String string = onStringPastedFromStart(oldString, String.valueOf(newString));
@@ -376,15 +367,6 @@ public class InputFilterPlus implements InputFilter {
             else return string;
         }
         if (filterInfo.dend != oldLength) {
-            if (newLength == 1) {
-                Log.d(TAG, "processFilter: pasted letter (middle)");
-
-                String string = onLetterPastedFromMiddle(oldString, filterInfo.dstart, String.valueOf(newString));
-
-                if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
-                else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
-                else return string;
-            }
             Log.d(TAG, "processFilter: pasted string (middle)");
 
             String string = onStringPastedFromMiddle(oldString, filterInfo.dstart, String.valueOf(newString));
@@ -394,15 +376,6 @@ public class InputFilterPlus implements InputFilter {
             else return string;
         }
         if (filterInfo.dend == oldLength) {
-            if (newLength == 1) {
-                Log.d(TAG, "processFilter: pasted letter (end)");
-
-                String string = onLetterPastedFromEnd(oldString, filterInfo.dstart, String.valueOf(newString));
-
-                if (string == PROCESSES_MODE_APPEND_ORIGINAL) return null;
-                else if (string == PROCESSES_MODE_APPEND_NOTHING) return "";
-                else return string;
-            }
             Log.d(TAG, "processFilter: pasted string (end)");
 
             String string = onStringPastedFromEnd(oldString, filterInfo.dstart, String.valueOf(newString));
@@ -478,20 +451,6 @@ public class InputFilterPlus implements InputFilter {
     public String onStringReplacedFromEnd(String currentString, int oldStringStartLocation, String oldString, String newString) {
         return PROCESSES_MODE_APPEND_ORIGINAL;
     }
-
-
-    public String onLetterPastedFromStart(String currentString, String letter) {
-        return PROCESSES_MODE_APPEND_ORIGINAL;
-    }
-
-    public String onLetterPastedFromMiddle(String currentString, int oldLetterStartLocation, String letter) {
-        return PROCESSES_MODE_APPEND_ORIGINAL;
-    }
-
-    public String onLetterPastedFromEnd(String currentString, int oldLetterStartLocation, String letter) {
-        return PROCESSES_MODE_APPEND_ORIGINAL;
-    }
-
 
     public String onStringPastedFromStart(String currentString, String string) {
         return PROCESSES_MODE_APPEND_ORIGINAL;

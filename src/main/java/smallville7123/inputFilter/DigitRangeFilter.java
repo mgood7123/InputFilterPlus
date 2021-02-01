@@ -368,45 +368,6 @@ public class DigitRangeFilter extends InputFilterPlus {
     }
 
     @Override
-    public String onLetterPastedFromStart(String currentString, String letter) {
-        if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
-        String filteredLetter = filter(letter, zeroToNine);
-        if (filteredLetter != null) {
-            if (filterLoop(filteredLetter + currentString, min, max, length) != null) {
-                stringLength++;
-                return filteredLetter;
-            }
-        }
-        return PROCESSES_MODE_APPEND_NOTHING;
-    }
-
-    @Override
-    public String onLetterPastedFromMiddle(String currentString, int oldLetterStartLocation, String letter) {
-        if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
-        String filteredLetter = filter(letter, zeroToNine);
-        if (filteredLetter != null) {
-            if (filterLoop(currentString.substring(0, oldLetterStartLocation) + filteredLetter + currentString.substring(oldLetterStartLocation), min, max, length) != null) {
-                stringLength++;
-                return filteredLetter;
-            }
-        }
-        return PROCESSES_MODE_APPEND_NOTHING;
-    }
-
-    @Override
-    public String onLetterPastedFromEnd(String currentString, int oldLetterStartLocation, String letter) {
-        if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
-        String filteredLetter = filter(letter, zeroToNine);
-        if (filteredLetter != null) {
-            if (filterLoop(currentString + filteredLetter, min, max, length) != null) {
-                stringLength++;
-                return filteredLetter;
-            }
-        }
-        return PROCESSES_MODE_APPEND_NOTHING;
-    }
-
-    @Override
     public String onStringPastedFromStart(String currentString, String string) {
         if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
 

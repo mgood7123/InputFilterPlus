@@ -50,10 +50,6 @@ String                         | return this if you want to append/replace with 
 
 ### Paste
 
-* pasted letter (start)
-* pasted letter (middle)
-* pasted letter (end)
-
 * pasted string (start)
 * pasted string (middle)
 * pasted string (end)
@@ -87,8 +83,7 @@ for example:
 for this reason it is also impossible to append a string since
 this functionality is equivalent to `paste string`
 
-this is also true for `remove string` and `cut string`
+this is also true for the following:
 
-### note
-
-although `paste letter` exists, `append letter` will be called instead
+* `remove string` and `cut string`
+* `paste letter` and `append letter`
