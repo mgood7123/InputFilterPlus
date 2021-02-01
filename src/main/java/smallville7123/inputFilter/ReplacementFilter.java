@@ -2,6 +2,7 @@ package smallville7123.inputFilter;
 
 /**
  * a version of {@link InputFilterPlus} that can replace text
+ * @see smallville7123.inputFilter.DigitRangeFilter
  * @see smallville7123.inputFilter.SpaceFilter
  * @see smallville7123.inputFilter.BackSpaceFilter
  * @see smallville7123.inputFilter.InputFilterPlus
@@ -12,6 +13,18 @@ public class ReplacementFilter extends InputFilterPlus {
     private final String what;
     private final String replacement;
 
+    /**
+     * a version of {@link InputFilterPlus} that can replace text
+     *
+     * @param allowReplacement true if text is allowed to be replaced, otherwise false
+     * @param what the string to be replaced
+     * @param replacement the string that <Strong>what</Strong> should be replaced with
+     *
+     * @see smallville7123.inputFilter.DigitRangeFilter
+     * @see smallville7123.inputFilter.SpaceFilter
+     * @see smallville7123.inputFilter.BackSpaceFilter
+     * @see smallville7123.inputFilter.InputFilterPlus
+     */
     public ReplacementFilter(boolean allowReplacement, String what, String replacement) {
         this.allowReplacement = allowReplacement;
         this.what = what;
@@ -19,104 +32,104 @@ public class ReplacementFilter extends InputFilterPlus {
     }
 
     @Override
-    public String onLetterAppendedToStart(String letter) {
+    public String onLetterAppendedToStart(String currentString, String letter) {
         if (!allowReplacement && letter.contains(what)) return replacement;
-        else return super.onLetterAppendedToStart(letter);
+        else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
-    public String onLetterAppendedToMiddle(String letter) {
+    public String onLetterAppendedToMiddle(String currentString, int oldLetterStartLocation, String letter) {
         if (!allowReplacement && letter.contains(what)) return replacement;
-        else return super.onLetterAppendedToMiddle(letter);
+        else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
-    public String onLetterAppendedToEnd(String letter) {
+    public String onLetterAppendedToEnd(String currentString, int oldLetterStartLocation, String letter) {
         if (!allowReplacement && letter.contains(what)) return replacement;
-        else return super.onLetterAppendedToEnd(letter);
+        else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
-    public String onLetterReplacedFromStart(String oldLetter, String newLetter) {
+    public String onLetterReplacedFromStart(String currentString, String oldLetter, String newLetter) {
         if (!allowReplacement && newLetter.contains(what)) return replacement;
-        else return super.onLetterReplacedFromStart(oldLetter, newLetter);
+        else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
-    public String onLetterReplacedFromMiddle(String oldLetter, String newLetter) {
+    public String onLetterReplacedFromMiddle(String currentString, int oldLetterStartLocation, String oldLetter, String newLetter) {
         if (!allowReplacement && newLetter.contains(what)) return replacement;
-        else return super.onLetterReplacedFromMiddle(oldLetter, newLetter);
+        else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
-    public String onLetterReplacedFromEnd(String oldLetter, String newLetter) {
+    public String onLetterReplacedFromEnd(String currentString, int oldLetterStartLocation, String oldLetter, String newLetter) {
         if (!allowReplacement && newLetter.contains(what)) return replacement;
-        else return super.onLetterReplacedFromEnd(oldLetter, newLetter);
+        else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
-    public String onStringReplacedFromStart(String oldString, String newString) {
+    public String onStringReplacedFromStart(String currentString, String oldString, String newString) {
         if (!allowReplacement && newString.contains(what)) {
             return newString.replace(what, replacement);
         }
-        else return super.onStringReplacedFromStart(oldString, newString);
+        else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
-    public String onStringReplacedFromMiddle(String oldString, String newString) {
+    public String onStringReplacedFromMiddle(String currentString, int oldStringStartLocation, String oldString, String newString) {
         if (!allowReplacement && newString.contains(what)) {
             return newString.replace(what, replacement);
         }
-        else return super.onStringReplacedFromMiddle(oldString, newString);
+        else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
-    public String onStringReplacedFromEnd(String oldString, String newString) {
+    public String onStringReplacedFromEnd(String currentString, int oldStringStartLocation, String oldString, String newString) {
         if (!allowReplacement && newString.contains(what)) {
             return newString.replace(what, replacement);
         }
-        else return super.onStringReplacedFromEnd(oldString, newString);
+        else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
-    public String onLetterPastedFromStart(String letter) {
+    public String onLetterPastedFromStart(String currentString, String letter) {
         if (!allowReplacement && letter.contains(what)) return replacement;
-        else return super.onLetterPastedFromStart(letter);
+        else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
-    public String onLetterPastedFromMiddle(String letter) {
+    public String onLetterPastedFromMiddle(String currentString, int oldLetterStartLocation, String letter) {
         if (!allowReplacement && letter.contains(what)) return replacement;
-        else return super.onLetterPastedFromMiddle(letter);
+        else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
-    public String onLetterPastedFromEnd(String letter) {
+    public String onLetterPastedFromEnd(String currentString, int oldLetterStartLocation, String letter) {
         if (!allowReplacement && letter.contains(what)) return replacement;
-        else return super.onLetterPastedFromEnd(letter);
+        else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
-    public String onStringPastedFromStart(String string) {
+    public String onStringPastedFromStart(String currentString, String string) {
         if (!allowReplacement && string.contains(what)) {
             return string.replace(what, replacement);
         }
-        else return super.onStringPastedFromStart(string);
+        else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
-    public String onStringPastedFromMiddle(String string) {
+    public String onStringPastedFromMiddle(String currentString, int oldStringStartLocation, String string) {
         if (!allowReplacement && string.contains(what)) {
             return string.replace(what, replacement);
         }
-        else return super.onStringPastedFromMiddle(string);
+        else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
-    public String onStringPastedFromEnd(String string) {
+    public String onStringPastedFromEnd(String currentString, int oldStringStartLocation, String string) {
         if (!allowReplacement && string.contains(what)) {
             return string.replace(what, replacement);
         }
-        else return super.onStringPastedFromEnd(string);
+        else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 }

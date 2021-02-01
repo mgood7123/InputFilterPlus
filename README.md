@@ -10,12 +10,15 @@ InputFilterPlus   | the core class, where all the hard work is done
 BackSpaceFilter   | a version of `InputFilterPlus` that can disallow backspaces
 ReplacementFilter | a version of `InputFilterPlus` that can replace text
 SpaceFilter       | a version of `InputFilterPlus` that can disallow spaces. this is actually just a wrapper around `ReplacementFilter`
+DigitRangeFilter  | a version of `InputFilterPlus` that limits text to a numerical range (0... to 9...)
 
 # Callback return values
 
-these should be self explanatory
-
-all callbacks accept either `PROCESSES_MODE_APPEND_ORIGINAL` or `PROCESSES_MODE_APPEND_NOTHING` or a `String` to append (see `ReplacementFilter`)
+Return value                   | Meaning
+------------------------------ | ------------------------------
+PROCESSES_MODE_APPEND_ORIGINAL | return this if you want to append/replace with the original value
+PROCESSES_MODE_APPEND_NOTHING  | return this if you want to reject the replacement all together
+String                         | return this if you want to append/replace with a custom string
 
 # Callbacks
 
@@ -85,3 +88,7 @@ for this reason it is also impossible to append a string since
 this functionality is equivalent to `paste string`
 
 this is also true for `remove string` and `cut string`
+
+### note
+
+although `paste letter` exists, `append letter` will be called instead
