@@ -87,7 +87,7 @@ public class HexRangeFilter extends AlphaNumericalRangeFilter {
      * @see InputFilterPlus
      */
     public HexRangeFilter(int min, int max, int[] range, int radix) {
-        super(min, max, Integer.toHexString(max).length(), range, radix);
+        throw new RuntimeException("HexRangeFilter does not support a custom radix");
     }
 
     /**

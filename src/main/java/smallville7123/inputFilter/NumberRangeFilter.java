@@ -81,7 +81,7 @@ public class NumberRangeFilter extends AlphaNumericalRangeFilter {
      * @see InputFilterPlus
      */
     public NumberRangeFilter(int min, int max, int[] range, int radix) {
-        super(min, max, range, radix);
+        throw new RuntimeException("NumberRangeFilter does not support a custom radix");
     }
 
     /**
