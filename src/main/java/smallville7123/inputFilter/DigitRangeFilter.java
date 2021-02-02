@@ -17,7 +17,7 @@ public class DigitRangeFilter extends InputFilterPlus {
 
     DigitRangeFilter() {
         throw new RuntimeException("A constructor that accepts arguments must be called instead");
-    };
+    }
 
     /**
      * a version of {@link InputFilterPlus} that limits text to a numerical range (0... to 9...)

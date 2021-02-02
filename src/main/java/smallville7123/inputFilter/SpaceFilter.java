@@ -24,7 +24,7 @@ public class SpaceFilter extends ReplacementFilter {
 
     SpaceFilter() {
         throw new RuntimeException("A constructor that accepts arguments must be called instead");
-    };
+    }
 
     /**
      * a version of {@link InputFilterPlus} that can disallow spaces

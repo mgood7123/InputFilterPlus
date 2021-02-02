@@ -17,7 +17,7 @@ public class HexRangeFilter extends InputFilterPlus {
 
     HexRangeFilter() {
         throw new RuntimeException("A constructor that accepts arguments must be called instead");
-    };
+    }
 
     /**
      * a version of {@link InputFilterPlus} that limits text to a hexadecimal range (0... to F...), supports both lowercase and UPPERCASE letters

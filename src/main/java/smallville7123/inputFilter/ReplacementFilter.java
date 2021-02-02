@@ -16,7 +16,7 @@ public class ReplacementFilter extends InputFilterPlus {
 
     ReplacementFilter() {
         throw new RuntimeException("A constructor that accepts arguments must be called instead");
-    };
+    }
 
     /**
      * a version of {@link InputFilterPlus} that can replace text

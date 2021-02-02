@@ -14,7 +14,7 @@ public class BackSpaceFilter extends InputFilterPlus {
 
     BackSpaceFilter() {
         throw new RuntimeException("A constructor that accepts arguments must be called instead");
-    };
+    }
 
     /**
      * a version of {@link InputFilterPlus} that can disallow backspaces
