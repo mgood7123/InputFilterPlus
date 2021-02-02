@@ -10,8 +10,9 @@ InputFilterPlus            | the core class, where all the hard work is done
 BackSpaceFilter            | a version of `InputFilterPlus` that can disallow backspaces
 ReplacementFilter          | a version of `InputFilterPlus` that can replace text
 SpaceFilter                | a version of `InputFilterPlus` that can disallow spaces. this is actually just a wrapper around `ReplacementFilter`
-AlphaNumericalRangeFilter  | a version of `InputFilterPlus` that limits text to an alphanumerical range (0... 9... and A... to Z...), supports both lowercase and UPPERCASE letters
-NumericalRangeFilter       | a version of `InputFilterPlus` that limits text to a numerical range (0... 9...)
+AlphaNumericRangeFilter    | a version of `InputFilterPlus` that limits text to an alphanumeric range (0... 9... and A... to Z...), supports both lowercase and UPPERCASE letters
+AlphabeticalRangeFilter    | a version of `InputFilterPlus` that limits text to an alphabetical range (A... Z...)
+NumericRangeFilter         | a version of `InputFilterPlus` that limits text to a numerical range (0... 9...)
 HexRangeFilter             | a version of `InputFilterPlus` that limits text to a hexadecimal range (0... 9... and A... to F...), supports both lowercase and UPPERCASE letters
 
 # Callback return values

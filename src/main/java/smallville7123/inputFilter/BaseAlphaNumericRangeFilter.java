@@ -4,139 +4,22 @@ import java.math.BigInteger;
 import java.util.Arrays;
 
 /**
- * a version of {@link InputFilterPlus} that limits text to an alphanumerical range (0... 9... and A... to Z...), supports both lowercase and UPPERCASE letters
+ * a version of {@link InputFilterPlus} that serves as the base for alphabetical and numerical filters
+ *
  * @see HexRangeFilter
- * @see NumberRangeFilter
+ * @see NumericRangeFilter
+ * @see AlphabeticalRangeFilter
+ * @see AlphaNumericRangeFilter
  * @see SpaceFilter
  * @see ReplacementFilter
  * @see BackSpaceFilter
  * @see InputFilterPlus
  */
-public class AlphaNumericalRangeFilter extends InputFilterPlus {
-    final int min;
-    final int max;
-    final int length;
-    final public int[] range;
-    final int radix;
-
-    AlphaNumericalRangeFilter() {
-        throw new RuntimeException("A constructor that accepts arguments must be called instead");
-    }
-
-    /**
-     * a version of {@link InputFilterPlus} that limits text to an alphanumerical range (0... 9... and A... to Z...), supports both lowercase and UPPERCASE letters
-     *
-     * @param min the minimum allowed alphanumerical value
-     * @param max the maximum allowed alphanumerical value
-     *
-     * @see HexRangeFilter
-     * @see NumberRangeFilter
-     * @see ReplacementFilter
-     * @see SpaceFilter
-     * @see BackSpaceFilter
-     * @see InputFilterPlus
-     */
-    public AlphaNumericalRangeFilter(int min, int max) {
-        this(min, max, Integer.toString(max).length(), new int[] { '0', '9', 'a', 'z', 'A', 'Z' }, 10);
-    }
-
-    /**
-     * a version of {@link InputFilterPlus} that limits text to an alphanumerical range (0... 9... and A... to Z...), supports both lowercase and UPPERCASE letters
-     *
-     * @param min the minimum allowed alphanumerical value
-     * @param max the maximum allowed alphanumerical value
-     * @param length the maximum allowed length, this is only exposed for length correction
-     *
-     * @see HexRangeFilter
-     * @see NumberRangeFilter
-     * @see ReplacementFilter
-     * @see SpaceFilter
-     * @see BackSpaceFilter
-     * @see InputFilterPlus
-     */
-    public AlphaNumericalRangeFilter(int min, int max, int length) {
-        this(min, max, length, new int[] { '0', '9', 'a', 'z', 'A', 'Z' }, 10);
-    }
-
-    /**
-     * a version of {@link InputFilterPlus} that limits text to an alphanumerical range (0... 9... and A... to Z...), supports both lowercase and UPPERCASE letters
-     *
-     * @param min the minimum allowed alphanumerical value
-     * @param max the maximum allowed alphanumerical value
-     * @param range the allowed input range, expressed as pairs on min, max
-     *
-     * @see HexRangeFilter
-     * @see NumberRangeFilter
-     * @see ReplacementFilter
-     * @see SpaceFilter
-     * @see BackSpaceFilter
-     * @see InputFilterPlus
-     */
-    public AlphaNumericalRangeFilter(int min, int max, int[] range) {
-        this(min, max, Integer.toString(max).length(), range, 10);
-    }
-
-    /**
-     * a version of {@link InputFilterPlus} that limits text to an alphanumerical range (0... 9... and A... to Z...), supports both lowercase and UPPERCASE letters
-     *
-     * @param min the minimum allowed alphanumerical value
-     * @param max the maximum allowed alphanumerical value
-     * @param range the allowed input range, expressed as pairs on min, max
-     * @param radix the radix to use when parsing strings, see {@link Integer#parseInt(String, int)}
-     *
-     * @see HexRangeFilter
-     * @see NumberRangeFilter
-     * @see ReplacementFilter
-     * @see SpaceFilter
-     * @see BackSpaceFilter
-     * @see InputFilterPlus
-     */
-    public AlphaNumericalRangeFilter(int min, int max, int[] range, int radix) {
-        this(min, max, Integer.toString(max).length(), range, radix);
-    }
-
-    /**
-     * a version of {@link InputFilterPlus} that limits text to an alphanumerical range (0... 9... and A... to Z...), supports both lowercase and UPPERCASE letters
-     *
-     * @param min the minimum allowed alphanumerical value
-     * @param max the maximum allowed alphanumerical value
-     * @param length the maximum allowed length, this is only exposed for length correction
-     * @param range the allowed input range, expressed as pairs on min, max
-     *
-     * @see HexRangeFilter
-     * @see NumberRangeFilter
-     * @see ReplacementFilter
-     * @see SpaceFilter
-     * @see BackSpaceFilter
-     * @see InputFilterPlus
-     */
-    public AlphaNumericalRangeFilter(int min, int max, int length, int[] range) {
-        this(min, max, length, range, 10);
-    }
-
-    /**
-     * a version of {@link InputFilterPlus} that limits text to an alphanumerical range (0... 9... and A... to Z...), supports both lowercase and UPPERCASE letters
-     *
-     * @param min the minimum allowed alphanumerical value
-     * @param max the maximum allowed alphanumerical value
-     * @param length the maximum allowed length, this is only exposed for length correction
-     * @param range the allowed input range, expressed as pairs on min, max
-     * @param radix the radix to use when parsing strings, see {@link Integer#parseInt(String, int)}
-     *
-     * @see HexRangeFilter
-     * @see NumberRangeFilter
-     * @see ReplacementFilter
-     * @see SpaceFilter
-     * @see BackSpaceFilter
-     * @see InputFilterPlus
-     */
-    public AlphaNumericalRangeFilter(int min, int max, int length, int[] range, int radix) {
-        this.min = min;
-        this.max = max;
-        this.length = length;
-        this.range = range;
-        this.radix = radix;
-    }
+public class BaseAlphaNumericRangeFilter extends InputFilterPlus {
+    Integer max;
+    Integer length;
+    public int[] range;
+    int radix;
 
     public static String filter(String string, int min, int max) {
         return filter(string, new int[] { min, max });
@@ -164,50 +47,26 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
         }
     }
 
-    public static String filterLoop(String filtered, int min, int max, int maxLength, int radix, boolean filterOnce) {
+    public static String filterLoop(String filtered, Integer max, Integer maxLength, int radix, boolean filterOnce) {
         if (filtered == null) return null;
         int filterLength = filtered.length();
         if (filterLength == 0) return null;
-        if (filterLength > maxLength) filtered = filtered.substring(filterLength - maxLength);
+        if (maxLength != null) if (filterLength > maxLength) filtered = filtered.substring(filterLength - maxLength);
         if (filtered.length() == 0) return null;
         int filteredInt = Integer.parseInt(filtered, radix);
-        if (filteredInt >= min && filteredInt <= max) return filtered;
+        if (max == null || filteredInt <= max) return filtered;
+        // max is not null if this point is reached
         if (filterOnce) return null;
         while (true) {
             filtered = filtered.substring(1);
             if (filtered.length() == 0) return null;
             filteredInt = Integer.parseInt(filtered, radix);
-            if (filteredInt >= min && filteredInt <= max) return filtered;
+            if (filteredInt <= max) return filtered;
         }
     }
 
-    public static String filterLoop(String filtered, int min, int max, int maxLength, int radix) {
-        return filterLoop(filtered, min, max, maxLength, radix, false);
-    }
-
-    public static String filterLoopBigInteger(String filtered, int min, int max, int maxLength, int radix, boolean filterOnce) {
-        if (filtered == null) return null;
-        int filterLength = filtered.length();
-        if (filterLength == 0) return null;
-        BigInteger minBigInteger = BigInteger.valueOf(min);
-        BigInteger maxBigInteger = BigInteger.valueOf(max);
-
-        if (filterLength > maxLength) filtered = filtered.substring(filterLength - maxLength);
-        if (filtered.length() == 0) return null;
-        BigInteger filteredInt = new BigInteger(filtered, radix);
-        if (filteredInt.compareTo(minBigInteger) >= 0 && filteredInt.compareTo(maxBigInteger) <= 0) return filtered;
-
-        if (filterOnce) return null;
-        while (true) {
-            filtered = filtered.substring(1);
-            if (filtered.length() == 0) return null;
-            filteredInt = new BigInteger(filtered, radix);
-            if (filteredInt.compareTo(minBigInteger) >= 0 && filteredInt.compareTo(maxBigInteger) <= 0) return filtered;
-        }
-    }
-
-    public static String filterLoopBigInteger(String filtered, int min, int max, int maxLength, int radix) {
-        return filterLoopBigInteger(filtered, min, max, maxLength, radix, false);
+    public static String filterLoop(String filtered, Integer max, Integer maxLength, int radix) {
+        return filterLoop(filtered, max, maxLength, radix, false);
     }
 
     public static String trimLeadingZeroes(String input) {
@@ -231,10 +90,11 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
 
     @Override
     public String onLetterAppendedToStart(String currentString, String letter) {
-        if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
+        if (length != null) if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
         String filteredLetter = filter(letter, range);
         if (filteredLetter != null) {
-            if (filterLoop(filteredLetter + currentString, min, max, length, radix, true) != null) {
+            if (length == null && max == null) return filteredLetter;
+            if (filterLoop(filteredLetter + currentString, max, length, radix, true) != null) {
                 stringLength++;
                 return filteredLetter;
             }
@@ -244,10 +104,11 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
 
     @Override
     public String onLetterAppendedToMiddle(String currentString, int oldLetterStartLocation, String letter) {
-        if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
+        if (length != null) if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
         String filteredLetter = filter(letter, range);
         if (filteredLetter != null) {
-            if (filterLoop(currentString.substring(0, oldLetterStartLocation) + filteredLetter + currentString.substring(oldLetterStartLocation), min, max, length, radix, true) != null) {
+            if (length == null && max == null) return filteredLetter;
+            if (filterLoop(currentString.substring(0, oldLetterStartLocation) + filteredLetter + currentString.substring(oldLetterStartLocation), max, length, radix, true) != null) {
                 stringLength++;
                 return filteredLetter;
             }
@@ -257,10 +118,11 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
 
     @Override
     public String onLetterAppendedToEnd(String currentString, int oldLetterStartLocation, String letter) {
-        if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
+        if (length != null) if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
         String filteredLetter = filter(letter, range);
         if (filteredLetter != null) {
-            if (filterLoop(currentString + filteredLetter, min, max, length, radix, true) != null) {
+            if (length == null && max == null) return filteredLetter;
+            if (filterLoop(currentString + filteredLetter, max, length, radix, true) != null) {
                 stringLength++;
                 return filteredLetter;
             }
@@ -309,7 +171,8 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
         // string length is not modified
         String filteredLetter = filter(newLetter, range);
         if (filteredLetter != null) {
-            if (filterLoop(filteredLetter + currentString.substring(1), min, max, length, radix, true) == null) {
+            if (max == null) return filteredLetter;
+            if (filterLoop(filteredLetter + currentString.substring(1), max, length, radix, true) == null) {
                 return PROCESSES_MODE_APPEND_NOTHING;
             }
             return filteredLetter;
@@ -322,7 +185,8 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
         // string length is not modified
         String filteredLetter = filter(newLetter, range);
         if (filteredLetter != null) {
-            if (filterLoop(currentString.substring(0, oldLetterStartLocation) + filteredLetter + currentString.substring(oldLetterStartLocation + 1), min, max, length, radix, true) == null) {
+            if (max == null) return filteredLetter;
+            if (filterLoop(currentString.substring(0, oldLetterStartLocation) + filteredLetter + currentString.substring(oldLetterStartLocation + 1), max, length, radix, true) == null) {
                 return PROCESSES_MODE_APPEND_NOTHING;
             }
             return filteredLetter;
@@ -335,7 +199,8 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
         // string length is not modified
         String filteredLetter = filter(newLetter, range);
         if (filteredLetter != null) {
-            if (filterLoop(currentString.substring(0, oldLetterStartLocation) + filteredLetter, min, max, length, radix, true) == null) {
+            if (max == null) return filteredLetter;
+            if (filterLoop(currentString.substring(0, oldLetterStartLocation) + filteredLetter, max, length, radix, true) == null) {
                 return PROCESSES_MODE_APPEND_NOTHING;
             }
             return filteredLetter;
@@ -350,6 +215,7 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
 
         // return if newString has no numbers in it
         if (filtered == null) return PROCESSES_MODE_APPEND_NOTHING;
+        if (length == null && max == null) return filtered;
 
         // copy currentString into REP so we can safely modify it
         String REP = new String(currentString);
@@ -365,7 +231,7 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
         REP = filtered + REP;
 
         // reformat REP to range between 0 and 255
-        REP = filterLoop(REP, min, max, length, radix);
+        REP = filterLoop(REP, max, length, radix);
 
         // remove SAVED from the end of REP
         REP = REP.substring(0, REP.lastIndexOf(SAVED));
@@ -391,6 +257,7 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
 
         // return if newString has no numbers in it
         if (filtered == null) return PROCESSES_MODE_APPEND_NOTHING;
+        if (length == null && max == null) return filtered;
 
         // copy filtered newString to REP
         String start = currentString.substring(0, oldStringStartLocation);
@@ -405,12 +272,12 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
         }
 
         // reformat REP to range between 0 and 255
-        REP = trimLeadingZeroes(filterLoop(REP, min, max, length, radix));
+        REP = trimLeadingZeroes(filterLoop(REP, max, length, radix));
 
         int newLength = REP.length();
         if (newLength == 0) return PROCESSES_MODE_APPEND_NOTHING;
 
-        if (filterLoop(start + REP + end, min, max, length, radix, true) == null) return PROCESSES_MODE_APPEND_NOTHING;
+        if (filterLoop(start + REP + end, max, length, radix, true) == null) return PROCESSES_MODE_APPEND_NOTHING;
 
         int oldLength = oldString.length();
 
@@ -430,6 +297,7 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
 
         // return if newString has no numbers in it
         if (filtered == null) return PROCESSES_MODE_APPEND_NOTHING;
+        if (length == null && max == null) return filtered;
 
         // remove oldString from current string and store the result in REP
         String start = currentString.substring(0, oldStringStartLocation);
@@ -440,7 +308,7 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
 
         if (REP.length() <= length) {
             // reformat REP to range between 0 and 255
-            REP = trimLeadingZeroes(filterLoop(REP, min, max, length, radix));
+            REP = trimLeadingZeroes(filterLoop(REP, max, length, radix));
 
             // remove SAVED from the end of REP
             REP = REP.substring(oldStringStartLocation);
@@ -449,7 +317,7 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
             }
         } else {
             // reformat REP to range between 0 and 255
-            REP = trimLeadingZeroes(filterLoop(REP, min, max, length, radix));
+            REP = trimLeadingZeroes(filterLoop(REP, max, length, radix));
         }
 
         if (((currentString.length() - oldString.length()) + REP.length()) > length) {
@@ -459,7 +327,7 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
         int newLength = REP.length();
         if (newLength == 0) return PROCESSES_MODE_APPEND_NOTHING;
 
-        if (filterLoop(start + REP, min, max, length, radix, true) == null) return PROCESSES_MODE_APPEND_NOTHING;
+        if (filterLoop(start + REP, max, length, radix, true) == null) return PROCESSES_MODE_APPEND_NOTHING;
 
         int oldLength = oldString.length();
 
@@ -474,15 +342,16 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
 
     @Override
     public String onStringPastedFromStart(String currentString, String string) {
-        if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
+        if (length != null) if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
 
         // filter out all characters that do not match the range '0' to '9'
         String filtered = filter(string, range);
 
         // return if newString has no numbers in it
         if (filtered == null) return PROCESSES_MODE_APPEND_NOTHING;
+        if (length == null && max == null) return filtered;
 
-        filtered = filterLoop(filtered, min, max, length, radix);
+        filtered = filterLoop(filtered, max, length, radix);
         if ((currentString.length() + filtered.length()) > length) {
             filtered = filtered.substring(filtered.length() - (length - currentString.length()));
         }
@@ -500,15 +369,16 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
 
     @Override
     public String onStringPastedFromMiddle(String currentString, int oldStringStartLocation, String string) {
-        if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
+        if (length != null) if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
 
         // filter out all characters that do not match the range '0' to '9'
         String filtered = filter(string, range);
 
         // return if newString has no numbers in it
         if (filtered == null) return PROCESSES_MODE_APPEND_NOTHING;
+        if (length == null && max == null) return filtered;
 
-        filtered = filterLoop(filtered, min, max, length, radix);
+        filtered = filterLoop(filtered, max, length, radix);
         if ((currentString.length() + filtered.length()) > length) {
             filtered = filtered.substring(filtered.length() - (length - currentString.length()));
         }
@@ -526,15 +396,16 @@ public class AlphaNumericalRangeFilter extends InputFilterPlus {
 
     @Override
     public String onStringPastedFromEnd(String currentString, int oldStringStartLocation, String string) {
-        if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
+        if (length != null) if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
 
         // filter out all characters that do not match the range '0' to '9'
         String filtered = filter(string, range);
 
         // return if newString has no numbers in it
         if (filtered == null) return PROCESSES_MODE_APPEND_NOTHING;
+        if (length == null && max == null) return filtered;
 
-        filtered = filterLoop(filtered, min, max, length, radix);
+        filtered = filterLoop(filtered, max, length, radix);
         if ((currentString.length() + filtered.length()) > length) {
             filtered = filtered.substring(filtered.length() - (length - currentString.length()));
         }

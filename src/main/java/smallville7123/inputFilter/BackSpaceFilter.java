@@ -3,8 +3,8 @@ package smallville7123.inputFilter;
 /**
  * a version of {@link InputFilterPlus} that can disallow backspaces
  * @see HexRangeFilter
- * @see NumberRangeFilter
- * @see AlphaNumericalRangeFilter
+ * @see NumericRangeFilter
+ * @see AlphaNumericRangeFilter
  * @see SpaceFilter
  * @see ReplacementFilter
  * @see InputFilterPlus
@@ -23,8 +23,8 @@ public class BackSpaceFilter extends InputFilterPlus {
      * @param allowBackspaces true if backspaces are allowed, otherwise false
      *
      * @see HexRangeFilter
-     * @see NumberRangeFilter
-     * @see AlphaNumericalRangeFilter
+     * @see NumericRangeFilter
+     * @see AlphaNumericRangeFilter
      * @see SpaceFilter
      * @see ReplacementFilter
      * @see InputFilterPlus

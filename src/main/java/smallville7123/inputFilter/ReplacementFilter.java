@@ -3,8 +3,8 @@ package smallville7123.inputFilter;
 /**
  * a version of {@link InputFilterPlus} that can replace text
  * @see HexRangeFilter
- * @see NumberRangeFilter
- * @see AlphaNumericalRangeFilter
+ * @see NumericRangeFilter
+ * @see AlphaNumericRangeFilter
  * @see SpaceFilter
  * @see BackSpaceFilter
  * @see InputFilterPlus
@@ -27,8 +27,8 @@ public class ReplacementFilter extends InputFilterPlus {
      * @param replacement the string that <Strong>what</Strong> should be replaced with
      *
      * @see HexRangeFilter
-     * @see NumberRangeFilter
-     * @see AlphaNumericalRangeFilter
+     * @see NumericRangeFilter
+     * @see AlphaNumericRangeFilter
      * @see SpaceFilter
      * @see BackSpaceFilter
      * @see InputFilterPlus
