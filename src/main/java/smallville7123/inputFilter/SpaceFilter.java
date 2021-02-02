@@ -15,7 +15,8 @@ package smallville7123.inputFilter;
  * }</pre>
  *
  * @see HexRangeFilter
- * @see DigitRangeFilter
+ * @see NumberRangeFilter
+ * @see AlphaNumericalRangeFilter
  * @see ReplacementFilter
  * @see BackSpaceFilter
  * @see InputFilterPlus
@@ -43,7 +44,8 @@ public class SpaceFilter extends ReplacementFilter {
      * @param allowSpaces true if spaces are allowed, otherwise false
      *
      * @see HexRangeFilter
-     * @see DigitRangeFilter
+     * @see NumberRangeFilter
+     * @see AlphaNumericalRangeFilter
      * @see ReplacementFilter
      * @see BackSpaceFilter
      * @see InputFilterPlus

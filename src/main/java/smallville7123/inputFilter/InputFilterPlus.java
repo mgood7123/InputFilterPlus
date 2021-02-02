@@ -63,7 +63,8 @@ import android.util.Log;
  * as it is difficult to maintain notes in both <Strong><code>Github Markdown</code></Strong> and <Strong><code>Javadoc</code></Strong> format
  *
  * @see HexRangeFilter
- * @see DigitRangeFilter
+ * @see NumberRangeFilter
+ * @see AlphaNumericalRangeFilter
  * @see SpaceFilter
  * @see ReplacementFilter
  * @see BackSpaceFilter
