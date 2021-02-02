@@ -289,7 +289,7 @@ public class InputFilterPlus implements InputFilter {
                 int endLength = end.length();
 
                 if (endLength == newLength - 1 && newString.regionMatches(0, end, 0, endLength)) {
-                    Log.d(TAG, "processFilter: convert to appended letter (end)");
+                    Log.d(TAG, "processFilter: appended letter (end)");
 
                     String letter = newString.substring(endLength);
 
