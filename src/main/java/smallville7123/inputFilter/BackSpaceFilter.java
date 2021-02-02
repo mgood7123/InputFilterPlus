@@ -2,24 +2,30 @@ package smallville7123.inputFilter;
 
 /**
  * a version of {@link InputFilterPlus} that can disallow backspaces
- * @see smallville7123.inputFilter.DigitRangeFilter
- * @see smallville7123.inputFilter.SpaceFilter
- * @see smallville7123.inputFilter.ReplacementFilter
- * @see smallville7123.inputFilter.InputFilterPlus
+ * @see HexRangeFilter
+ * @see DigitRangeFilter
+ * @see SpaceFilter
+ * @see ReplacementFilter
+ * @see InputFilterPlus
  */
 public class BackSpaceFilter extends InputFilterPlus {
 
     private final boolean allowBackspaces;
+
+    BackSpaceFilter() {
+        throw new RuntimeException("A constructor that accepts arguments must be called instead");
+    };
 
     /**
      * a version of {@link InputFilterPlus} that can disallow backspaces
      *
      * @param allowBackspaces true if backspaces are allowed, otherwise false
      *
-     * @see smallville7123.inputFilter.DigitRangeFilter
-     * @see smallville7123.inputFilter.SpaceFilter
-     * @see smallville7123.inputFilter.ReplacementFilter
-     * @see smallville7123.inputFilter.InputFilterPlus
+     * @see HexRangeFilter
+     * @see DigitRangeFilter
+     * @see SpaceFilter
+     * @see ReplacementFilter
+     * @see InputFilterPlus
      */
     public BackSpaceFilter(boolean allowBackspaces) {
         this.allowBackspaces = allowBackspaces;

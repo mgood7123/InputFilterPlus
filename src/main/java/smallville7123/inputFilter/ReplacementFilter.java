@@ -2,16 +2,21 @@ package smallville7123.inputFilter;
 
 /**
  * a version of {@link InputFilterPlus} that can replace text
- * @see smallville7123.inputFilter.DigitRangeFilter
- * @see smallville7123.inputFilter.SpaceFilter
- * @see smallville7123.inputFilter.BackSpaceFilter
- * @see smallville7123.inputFilter.InputFilterPlus
+ * @see HexRangeFilter
+ * @see DigitRangeFilter
+ * @see SpaceFilter
+ * @see BackSpaceFilter
+ * @see InputFilterPlus
  */
 public class ReplacementFilter extends InputFilterPlus {
 
     private final boolean allowReplacement;
     private final String what;
     private final String replacement;
+
+    ReplacementFilter() {
+        throw new RuntimeException("A constructor that accepts arguments must be called instead");
+    };
 
     /**
      * a version of {@link InputFilterPlus} that can replace text
@@ -20,10 +25,11 @@ public class ReplacementFilter extends InputFilterPlus {
      * @param what the string to be replaced
      * @param replacement the string that <Strong>what</Strong> should be replaced with
      *
-     * @see smallville7123.inputFilter.DigitRangeFilter
-     * @see smallville7123.inputFilter.SpaceFilter
-     * @see smallville7123.inputFilter.BackSpaceFilter
-     * @see smallville7123.inputFilter.InputFilterPlus
+     * @see HexRangeFilter
+     * @see DigitRangeFilter
+     * @see SpaceFilter
+     * @see BackSpaceFilter
+     * @see InputFilterPlus
      */
     public ReplacementFilter(boolean allowReplacement, String what, String replacement) {
         this.allowReplacement = allowReplacement;
@@ -33,43 +39,43 @@ public class ReplacementFilter extends InputFilterPlus {
 
     @Override
     public String onLetterAppendedToStart(String currentString, String letter) {
-        if (!allowReplacement && letter.contains(what)) return replacement;
+        if (allowReplacement && letter.contains(what)) return replacement;
         else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
     public String onLetterAppendedToMiddle(String currentString, int oldLetterStartLocation, String letter) {
-        if (!allowReplacement && letter.contains(what)) return replacement;
+        if (allowReplacement && letter.contains(what)) return replacement;
         else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
     public String onLetterAppendedToEnd(String currentString, int oldLetterStartLocation, String letter) {
-        if (!allowReplacement && letter.contains(what)) return replacement;
+        if (allowReplacement && letter.contains(what)) return replacement;
         else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
     public String onLetterReplacedFromStart(String currentString, String oldLetter, String newLetter) {
-        if (!allowReplacement && newLetter.contains(what)) return replacement;
+        if (allowReplacement && newLetter.contains(what)) return replacement;
         else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
     public String onLetterReplacedFromMiddle(String currentString, int oldLetterStartLocation, String oldLetter, String newLetter) {
-        if (!allowReplacement && newLetter.contains(what)) return replacement;
+        if (allowReplacement && newLetter.contains(what)) return replacement;
         else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
     public String onLetterReplacedFromEnd(String currentString, int oldLetterStartLocation, String oldLetter, String newLetter) {
-        if (!allowReplacement && newLetter.contains(what)) return replacement;
+        if (allowReplacement && newLetter.contains(what)) return replacement;
         else return PROCESSES_MODE_APPEND_ORIGINAL;
     }
 
     @Override
     public String onStringReplacedFromStart(String currentString, String oldString, String newString) {
-        if (!allowReplacement && newString.contains(what)) {
+        if (allowReplacement && newString.contains(what)) {
             return newString.replace(what, replacement);
         }
         else return PROCESSES_MODE_APPEND_ORIGINAL;
@@ -77,7 +83,7 @@ public class ReplacementFilter extends InputFilterPlus {
 
     @Override
     public String onStringReplacedFromMiddle(String currentString, int oldStringStartLocation, String oldString, String newString) {
-        if (!allowReplacement && newString.contains(what)) {
+        if (allowReplacement && newString.contains(what)) {
             return newString.replace(what, replacement);
         }
         else return PROCESSES_MODE_APPEND_ORIGINAL;
@@ -85,7 +91,7 @@ public class ReplacementFilter extends InputFilterPlus {
 
     @Override
     public String onStringReplacedFromEnd(String currentString, int oldStringStartLocation, String oldString, String newString) {
-        if (!allowReplacement && newString.contains(what)) {
+        if (allowReplacement && newString.contains(what)) {
             return newString.replace(what, replacement);
         }
         else return PROCESSES_MODE_APPEND_ORIGINAL;
@@ -93,7 +99,7 @@ public class ReplacementFilter extends InputFilterPlus {
 
     @Override
     public String onStringPastedFromStart(String currentString, String string) {
-        if (!allowReplacement && string.contains(what)) {
+        if (allowReplacement && string.contains(what)) {
             return string.replace(what, replacement);
         }
         else return PROCESSES_MODE_APPEND_ORIGINAL;
@@ -101,7 +107,7 @@ public class ReplacementFilter extends InputFilterPlus {
 
     @Override
     public String onStringPastedFromMiddle(String currentString, int oldStringStartLocation, String string) {
-        if (!allowReplacement && string.contains(what)) {
+        if (allowReplacement && string.contains(what)) {
             return string.replace(what, replacement);
         }
         else return PROCESSES_MODE_APPEND_ORIGINAL;
@@ -109,7 +115,7 @@ public class ReplacementFilter extends InputFilterPlus {
 
     @Override
     public String onStringPastedFromEnd(String currentString, int oldStringStartLocation, String string) {
-        if (!allowReplacement && string.contains(what)) {
+        if (allowReplacement && string.contains(what)) {
             return string.replace(what, replacement);
         }
         else return PROCESSES_MODE_APPEND_ORIGINAL;

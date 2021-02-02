@@ -11,6 +11,7 @@ BackSpaceFilter   | a version of `InputFilterPlus` that can disallow backspaces
 ReplacementFilter | a version of `InputFilterPlus` that can replace text
 SpaceFilter       | a version of `InputFilterPlus` that can disallow spaces. this is actually just a wrapper around `ReplacementFilter`
 DigitRangeFilter  | a version of `InputFilterPlus` that limits text to a numerical range (0... to 9...)
+HexRangeFilter    | a version of `InputFilterPlus` that limits text to a hexadecimal range (0... to F...), supports both lowercase and UPPERCASE letters
 
 # Callback return values
 
@@ -18,7 +19,9 @@ Return value                   | Meaning
 ------------------------------ | ------------------------------
 PROCESSES_MODE_APPEND_ORIGINAL | return this if you want to append/replace with the original value
 PROCESSES_MODE_APPEND_NOTHING  | return this if you want to reject the append/replacement all together
-of type `String`               | return this if you want to append/replace with a custom string
+`String`                       | return anything of type `String` if you want to append/replace with a custom string
+
+the default return value for all callbacks in `InputFilterPlus` is `PROCESSES_MODE_APPEND_ORIGINAL`
 
 # Callbacks
 
@@ -73,10 +76,6 @@ but instead as two sequential `InputFilter#filter` events:
 followed by
 
 * `appended letter`
-
-### Note
-
-text that contains spaces behaves in a non conforming way with `InputFilter#filter`
 
 ### Note
 

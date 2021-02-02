@@ -4,40 +4,40 @@ import java.math.BigInteger;
 import java.util.Arrays;
 
 /**
- * a version of {@link InputFilterPlus} that limits text to a numerical range (0... to 9...)
- * @see HexRangeFilter
+ * a version of {@link InputFilterPlus} that limits text to a hexadecimal range (0... to F...), supports both lowercase and UPPERCASE letters
+ * @see DigitRangeFilter
  * @see SpaceFilter
  * @see ReplacementFilter
  * @see BackSpaceFilter
  * @see InputFilterPlus
  */
-public class DigitRangeFilter extends InputFilterPlus {
+public class HexRangeFilter extends InputFilterPlus {
     private final int min, max;
     private final int length;
 
-    DigitRangeFilter() {
+    HexRangeFilter() {
         throw new RuntimeException("A constructor that accepts arguments must be called instead");
     };
 
     /**
-     * a version of {@link InputFilterPlus} that limits text to a numerical range (0... to 9...)
+     * a version of {@link InputFilterPlus} that limits text to a hexadecimal range (0... to F...), supports both lowercase and UPPERCASE letters
      *
-     * @param min the minimum allowed numerical value
-     * @param max the maximum allowed numerical value
+     * @param min the minimum allowed hexadecimal value
+     * @param max the maximum allowed hexadecimal value
      *
-     * @see HexRangeFilter
+     * @see DigitRangeFilter
      * @see ReplacementFilter
      * @see SpaceFilter
      * @see BackSpaceFilter
      * @see InputFilterPlus
      */
-    public DigitRangeFilter(int min, int max) {
+    public HexRangeFilter(int min, int max) {
         this.min = min;
         this.max = max;
-        this.length = Integer.toString(max).length();
+        this.length = Integer.toHexString(max).length();
     }
 
-    public static int[] zeroToNine = new int[] { '0', '9' };
+    public static int[] zeroToNine = new int[] { '0', '9', 'a', 'f', 'A', 'F' };
 
     public static String filter(String string, int min, int max) {
         return filter(string, new int[] { min, max });
@@ -71,13 +71,13 @@ public class DigitRangeFilter extends InputFilterPlus {
         if (filterLength == 0) return null;
         if (filterLength > maxLength) filtered = filtered.substring(filterLength - maxLength);
         if (filtered.length() == 0) return null;
-        int filteredInt = Integer.valueOf(filtered);
+        int filteredInt = Integer.parseInt(filtered, 16);
         if (filteredInt >= min && filteredInt <= max) return filtered;
         if (filterOnce) return null;
         while (true) {
             filtered = filtered.substring(1);
             if (filtered.length() == 0) return null;
-            filteredInt = Integer.valueOf(filtered);
+            filteredInt = Integer.parseInt(filtered, 16);
             if (filteredInt >= min && filteredInt <= max) return filtered;
         }
     }

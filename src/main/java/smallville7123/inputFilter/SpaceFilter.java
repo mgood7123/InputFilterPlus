@@ -14,12 +14,18 @@ package smallville7123.inputFilter;
  * }
  * }</pre>
  *
- * @see smallville7123.inputFilter.DigitRangeFilter
- * @see smallville7123.inputFilter.ReplacementFilter
- * @see smallville7123.inputFilter.BackSpaceFilter
- * @see smallville7123.inputFilter.InputFilterPlus
+ * @see HexRangeFilter
+ * @see DigitRangeFilter
+ * @see ReplacementFilter
+ * @see BackSpaceFilter
+ * @see InputFilterPlus
  */
 public class SpaceFilter extends ReplacementFilter {
+
+    SpaceFilter() {
+        throw new RuntimeException("A constructor that accepts arguments must be called instead");
+    };
+
     /**
      * a version of {@link InputFilterPlus} that can disallow spaces
      * <br>
@@ -36,10 +42,11 @@ public class SpaceFilter extends ReplacementFilter {
      *
      * @param allowSpaces true if spaces are allowed, otherwise false
      *
-     * @see smallville7123.inputFilter.DigitRangeFilter
-     * @see smallville7123.inputFilter.ReplacementFilter
-     * @see smallville7123.inputFilter.BackSpaceFilter
-     * @see smallville7123.inputFilter.InputFilterPlus
+     * @see HexRangeFilter
+     * @see DigitRangeFilter
+     * @see ReplacementFilter
+     * @see BackSpaceFilter
+     * @see InputFilterPlus
      */
     public SpaceFilter(boolean allowSpaces) {
         super(allowSpaces, " ", "");
