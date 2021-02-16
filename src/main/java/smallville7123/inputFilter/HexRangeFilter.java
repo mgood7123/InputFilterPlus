@@ -1,8 +1,5 @@
 package smallville7123.inputFilter;
 
-import java.math.BigInteger;
-import java.util.Arrays;
-
 /**
  * a version of {@link InputFilterPlus} that limits text to a hexadecimal range (0... 9... and A... to F...), supports both lowercase and UPPERCASE letters
  *

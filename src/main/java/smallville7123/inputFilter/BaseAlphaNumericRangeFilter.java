@@ -1,6 +1,5 @@
 package smallville7123.inputFilter;
 
-import java.math.BigInteger;
 import java.util.Arrays;
 
 /**
