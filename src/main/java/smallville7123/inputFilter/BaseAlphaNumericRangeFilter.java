@@ -42,7 +42,7 @@ public class BaseAlphaNumericRangeFilter extends InputFilterPlus {
             if (i == 0) return null;
             return String.valueOf(Arrays.copyOf(output, i));
         } else {
-            throw new RuntimeException("minmax have an even number of items");
+            throw new RuntimeException("the variable 'minmax' must have an even number of items");
         }
     }
 
