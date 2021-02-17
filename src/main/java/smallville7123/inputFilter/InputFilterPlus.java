@@ -2,7 +2,6 @@ package smallville7123.inputFilter;
 
 import android.text.InputFilter;
 import android.text.Spanned;
-import android.text.SpannedString;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -198,11 +197,10 @@ public class InputFilterPlus implements InputFilter {
         // process text input
 
         if (previous != null) {
+            // this might not be enough, keep mode's for now
             if (current.dest.length() == 0) {
                 String oldString = previous.source.toString();
                 String newString = current.source.toString();
-                int oldLength = oldString.length();
-                int newLength = newString.length();
                 Log.d(TAG, "oldString = [" + (oldString) + "]");
                 Log.d(TAG, "newString = [" + (newString) + "]");
                 Log.d(TAG, "processFilter: [setText] criteria match");
