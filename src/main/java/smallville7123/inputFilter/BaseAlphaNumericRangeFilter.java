@@ -88,6 +88,31 @@ public class BaseAlphaNumericRangeFilter extends InputFilterPlus {
     int stringLength = 0;
 
     @Override
+    public String onSetText(String currentString, String string) {
+        stringLength = 0;
+        if (length != null) if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
+
+        // filter out all characters that do not match the range '0' to '9'
+        String filtered = filter(string, range);
+
+        // return if newString has no numbers in it
+        if (filtered == null) return PROCESSES_MODE_APPEND_NOTHING;
+        if (length == null && max == null) return filtered;
+
+        filtered = filterLoop(filtered, max, length, radix);
+        if (filtered != null) {
+            int oldStringLength = stringLength;
+            stringLength += filtered.length();
+            if (stringLength > length) {
+                stringLength = oldStringLength;
+                return PROCESSES_MODE_APPEND_NOTHING;
+            }
+            return filtered;
+        }
+        return PROCESSES_MODE_APPEND_NOTHING;
+    }
+
+    @Override
     public String onLetterAppendedToStart(String currentString, String letter) {
         if (length != null) if (stringLength >= length) return PROCESSES_MODE_APPEND_NOTHING;
         String filteredLetter = filter(letter, range);

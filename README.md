@@ -27,6 +27,10 @@ the default return value for all callbacks in `InputFilterPlus` is `PROCESSES_MO
 
 # Callbacks
 
+### setText
+
+* set text
+
 ### Append
 
 * appended letter (start)
@@ -96,3 +100,4 @@ this is also true for the following:
 
 * `remove string` and `cut string`
 * `append letter` and `paste letter`
+* `set Text` and `paste string` ONLY when the text field is first modified, subsequent modifications to the text field will trigger `set Text` callback
